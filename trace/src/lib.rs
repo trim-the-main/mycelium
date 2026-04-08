@@ -1,5 +1,4 @@
 #![cfg_attr(not(test), no_std)]
-#![feature(doc_cfg)]
 
 #[cfg(feature = "alloc")]
 extern crate alloc;

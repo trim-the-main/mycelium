@@ -10,6 +10,7 @@
 //!
 //! [`loom`]: https:://crates.io/crates/loom
 //! [loom-unsafecell]: https://docs.rs/loom/latest/loom/cell/struct.UnsafeCell.html
+//! [loom-cell]: https://docs.rs/loom/latest/loom/cell/struct.Cell.html
 
 pub use self::unsafe_cell::*;
 

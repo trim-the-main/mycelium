@@ -894,7 +894,7 @@ mod isr {
         });
     }
 
-    pub(super) extern "x86-interrupt" fn spurious() {
+    pub(super) extern "x86-interrupt" fn spurious(_regs: Registers) {
         // TODO(eliza): do we need to actually do something here?
     }
 }
