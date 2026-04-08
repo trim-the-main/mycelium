@@ -706,7 +706,7 @@ impl<K: PartialEq, V, Lock: ScopedRawMutex> WaitMap<K, V, Lock> {
         let mut wait = core::pin::pin!(wait);
 
         loop {
-            let _ = wait.as_mut().subscribe().await?;
+            wait.as_mut().subscribe().await?;
             if f() {
                 return Ok(());
             }
@@ -815,12 +815,16 @@ impl<K: PartialEq, V, Lock: ScopedRawMutex> WaitMap<K, V, Lock> {
     /// # }
     /// # test();
     /// ```
-    pub async fn wait_for_value<T, F: FnMut() -> Option<T>>(&self, key: K, mut f: F) -> WaitResult<T> {
+    pub async fn wait_for_value<T, F: FnMut() -> Option<T>>(
+        &self,
+        key: K,
+        mut f: F,
+    ) -> WaitResult<T> {
         let wait = self.wait(key);
         let mut wait = core::pin::pin!(wait);
 
         loop {
-            let _ = wait.as_mut().subscribe().await?;
+            wait.as_mut().subscribe().await?;
             if let Some(t) = f() {
                 return Ok(t);
             }

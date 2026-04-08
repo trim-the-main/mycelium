@@ -63,9 +63,10 @@ enum_from_bits! {
 }
 
 enum_from_bits! {
-    #[derive(Debug, PartialEq, Eq)]
+    #[derive(Debug, PartialEq, Eq, Default)]
     pub enum DeliveryMode<u8> {
         /// Normal interrupt delivery.
+        #[default]
         Normal = 0b000,
         /// Lowest priority.
         LowPriority = 0b001,
@@ -470,14 +471,6 @@ impl IoApic {
         self.registers
             .map_mut(|ioapic| &mut ioapic.address)
             .write(offset);
-    }
-}
-
-// === impl DeliveryMode ===
-
-impl Default for DeliveryMode {
-    fn default() -> Self {
-        Self::Normal
     }
 }
 

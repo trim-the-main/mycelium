@@ -60,7 +60,7 @@ jobs:
       uses: actions-rs/toolchain@v1.0.6
       with:
         profile: minimal
-        components: clippy
+        components: clippy, rust-src, llvm-tools-preview
         toolchain: nightly
         override: true
     - uses: actions/checkout@v4
