@@ -204,6 +204,28 @@ jobs:
     - name: run rustdoc
       run: just check-docs
 
+  docs-rs:
+    needs: changed_paths
+    if: needs.changed_paths.outputs.should_skip != 'true'
+    runs-on: ubuntu-latest
+    env:
+      RUSTDOCFLAGS: -Dwarnings
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rust-src, llvm-tools-preview
+      - name: check what nightly toolchain we got
+        run: rustup show
+      - name: install Just
+        uses: extractions/setup-just@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: run rustdoc
+        env:
+          RUSTUP_TOOLCHAIN: nightly
+        run: just check-docs
+
   ### cordyceps ###
 
   # run loom tests
@@ -275,7 +297,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: install rust toolchain
-      # We add the target here, rather than in the `targets` item in the 
+      # We add the target here, rather than in the `targets` item in the
       # toolchain file, because it would be a waste for all other CI jobs to
       # have to install it.
       run: rustup target add thumbv6m-none-eabi
@@ -355,6 +377,7 @@ jobs:
     - build-x64
     - test-x64
     - docs
+    - docs-rs
     - cordyceps_loom
     - cordyceps_miri
     - cordyceps_no_atomics_compat
