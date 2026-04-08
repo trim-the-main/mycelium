@@ -56,7 +56,7 @@ use blocking::{RawMutex, RawRwLock};
 ///
 /// This type implements the [`RawMutex`] and
 /// [`ScopedRawMutex`](mutex_traits::ScopedRawMutex) traits from the
-/// [`mutex-traits`] crate. This allows it to be used with the
+/// [`mutex-traits`](mutex_traits) crate. This allows it to be used with the
 /// [`blocking::Mutex`] type when a spinlock-based mutex is needed.
 #[derive(Debug)]
 pub struct Spinlock {
